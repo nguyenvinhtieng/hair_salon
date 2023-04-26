@@ -1,0 +1,65 @@
+.c-btn-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.c-btn01 {
+  padding: 9px 32px;
+  color: #fff;
+  background-color: #32A659;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.2s linear;
+  font-size: 20px;
+  font-weight: 700;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.c-btn02 {
+  padding: 9px 32px;
+  color: #fff;
+  background-color: #CD583E;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.2s linear;
+  font-size: 20px;
+  font-weight: 700;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.c-btn03 {
+  padding: 9px 32px;
+  color: #fff;
+  background-color: #1577EBFC;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.2s linear;
+  font-size: 20px;
+  font-weight: 700;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+select {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  option {
+    padding: 4px 8px;
+    // padding not working
+  }
+}

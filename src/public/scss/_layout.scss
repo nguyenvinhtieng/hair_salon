@@ -1,0 +1,148 @@
+.l-container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.l-header {
+  &__menu {
+    display: flex;
+    padding: 9px 13px;
+    background-color: #D9D9D9;
+  }
+
+  &__item {
+    margin-right: 15px;
+
+    a {
+      color: white;
+      background-color: #9D3333;
+      transition: all 0.2s linear;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 7px 32px;
+      display: block;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.l-layout01 {
+  display: flex;
+  padding: 12px 9px;
+
+  &-col01 {
+    width: calc(847 / 1440 * 100%);
+  }
+
+  &-col02 {
+    width: calc(574 / 1440 * 100%);
+  }
+}
+
+.l-table {
+  width: 100%;
+
+  tr {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      height: 6px;
+      left: 0;
+      right: 0;
+      background-color: #D9D9D9;
+    }
+  }
+
+  th {
+    text-align: left;
+    padding: 15px 9px;
+  }
+
+  td {
+    padding: 15px 9px;
+  }
+
+  &-quantity {
+    // padding: 
+    display: flex;
+    gap: 5px;
+
+    button {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.l-orders {
+  &-head {
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #CA4D4D59;
+    padding: 15px 11px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  &-list {
+    height: 300px;
+    overflow-y: auto;
+    background-color: #CA4D4D59;
+    tr {
+      &::before {
+        background-color: #38274744;
+      }
+    }
+  }
+  &-total {
+    color: black;
+    background-color: #CA4D4D59;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.l-col {
+  display: flex;
+  &1 {
+    width: 50%;
+    padding: 8px 11px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  &2 {
+    width: 50%;
+    padding: 8px 11px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  label {
+    width: 70px;
+  }
+  input {
+    width: 176px;
+    border-radius: 5px;
+    padding: 4px 8px;
+    outline: none;
+    border: 1px solid #000000B2;
+  }
+  &_txt--box {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+  }
+}

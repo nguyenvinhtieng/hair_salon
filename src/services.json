@@ -1,0 +1,80 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Cắt - Xã - Cạo mặt - Tạo kiểu",
+      "price" : 80000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 2,
+      "title": "Uốn",
+      "price" : 300000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 3,
+      "title": "Ép Side",
+      "price" : 150000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 4,
+      "title": "Duỗi L1",
+      "price" : 300000,
+      "type": "text"
+    },
+    {
+      "id": 11,
+      "title": "Duỗi L2",
+      "price" : 400000,
+      "type": "text"
+    },
+
+    {
+      "id": 5,
+      "title": "Nhuộm",
+      "price" : 250000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 6,
+      "title": "Tẩy tóc",
+      "price" : 120000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 7,
+      "title": "Cắt tóc trẻ em",
+      "price" : 50000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 8,
+      "title": "Dưỡng tóc",
+      "price" : 150000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 9,
+      "title": "Tẩy TBC + Đắp mặt nạ",
+      "price" : 40000,
+      "type": "text",
+      "list": []
+    },
+    {
+      "id": 10,
+      "title": "Lấy ráy tai",
+      "price" : 40000,
+      "type": "text",
+      "list": []
+    }
+  ]
+}
