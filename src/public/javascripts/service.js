@@ -1,5 +1,10 @@
+const STATE = {
+  CHOOSE: "CHOOSE",
+  BOOKING: "BOOKING"
+}
 let global_servies = [];
 let current_services = [];
+let current_state = STATE.CHOOSE
 /*
   {
     id: 1,
@@ -19,19 +24,20 @@ function loadService() {
     type: 'GET',
     success: function (data) {
       if(data.status) {
-        renderDataServices(data.services.services);
         global_servies = data.services.services;
+        renderDataServices();
       }
     }
   })
 }
-function renderDataServices(services) {
-  let tableServices = document.querySelector(".js-table-services");
+function renderDataServices() {
+  let tableServices = document.querySelector(".js-table-services tbody");
   let html = '';
-  services.forEach(service => {
+  tableServices.innerHTML = '';
+  global_servies.forEach(service => {
     html += `<tr id="${service.id}">`
     html += `<td>${service.title}</td>`
-    html += `<td>${formatMoney(service.price)}</td>`
+    html += `<td class="align-right">${formatMoney(service.price)}</td>`
     html += `<td>
               <div class="l-table-quantity js-quantity">
                 <button class="js-quantity-sub">-</button>
@@ -39,7 +45,7 @@ function renderDataServices(services) {
                 <button class="js-quantity-plus">+</button>
               </div>
             </td>`
-    html += `<td class="js-money">0</td>`
+    html += `<td class="js-money align-right">0</td>`
     html += `</tr>`
   });
   tableServices.innerHTML += html;
@@ -67,7 +73,7 @@ function initEventForTable() {
           if(s.id == serviceId) {
             s.quantity += 1;
             quantity.textContent = s.quantity;
-            money.textContent = s.quantity * s.price;
+            money.textContent = formatMoney(s.quantity * s.price);
           }
         })
       } else {
@@ -93,7 +99,7 @@ function initEventForTable() {
             if(s.quantity > 0) {
               s.quantity -= 1;
               quantity.textContent = s.quantity;
-              money.textContent = s.quantity * s.price;
+              money.textContent = formatMoney(s.quantity * s.price);
             }
           }
         })
@@ -103,8 +109,43 @@ function initEventForTable() {
   });
 }
 
+function renderToReceipt() {
+  // delete current_services have quantity = 0 
+  current_services = current_services.filter(service => service.quantity > 0);
+  let tableReceipt = document.querySelector(".js-table-receipt tbody");
+  tableReceipt.innerHTML = '';
+  let html = ``
+  current_services.forEach(service => {
+    html += `<tr>
+              <td>${service.title}</td>
+              <td>${formatMoney(service.price)}</td>
+              <td>${service.quantity}</td>
+              <td>${formatMoney(service.price * service.quantity)}</td>
+            </tr>`
+  })
+  tableReceipt.innerHTML += html;
 
+}
+
+function eventForBtn() {
+  let btnClearData = document.querySelector(".js-clear-data");
+  btnClearData.addEventListener('click', function () {
+    current_services = [];
+    renderDataServices();
+  }, false);
+
+
+  let btnBook = document.querySelector(".js-btn-book");
+  btnBook.addEventListener('click', function () {
+    current_state = STATE.BOOKING;
+    renderToReceipt();
+  }, false);
+
+}
+
+// function 
 
 window.addEventListener('load', function () {
   loadService();
+  eventForBtn();
 }, false);

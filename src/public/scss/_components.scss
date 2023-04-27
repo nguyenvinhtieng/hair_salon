@@ -10,42 +10,42 @@
 }
 
 .c-btn01 {
-  padding: 9px 32px;
+  padding: 12px 20px;
   color: #fff;
   background-color: #32A659;
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
   outline: none;
   transition: all 0.2s linear;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   &:hover {
     opacity: 0.8;
   }
 }
 .c-btn02 {
-  padding: 9px 32px;
+  padding: 12px 20px;
   color: #fff;
   background-color: #CD583E;
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
   outline: none;
   transition: all 0.2s linear;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   &:hover {
     opacity: 0.8;
   }
 }
 .c-btn03 {
-  padding: 9px 32px;
+  padding: 12px 20px;
   color: #fff;
   background-color: #1577EBFC;
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
   outline: none;
   transition: all 0.2s linear;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   &:hover {
     opacity: 0.8;
@@ -61,5 +61,23 @@ select {
   option {
     padding: 4px 8px;
     // padding not working
+  }
+}
+
+
+.input_wrapper {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  label {
+    width: 10%;
+  }
+  input {
+    flex: 1;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 }

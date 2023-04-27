@@ -1,126 +1,112 @@
 
 <main class="l-container">
   {{> header}}
-  <div class="l-layout01">
-    <div class="l-layout01-col01">
-      <table class="l-table js-table-services">
-        <tr>
-          <th>Tên dịch vụ</th>
-          <th>Giá tiền</th>
-          <th>Số lượng</th>
-          <th>Thành tiền</th>
-        </tr>
-        {{!-- <tr>
-          <td>Cắt - Xã - Cạo mặt - Tạo kiểu</td>
-          <td>
-            <div class="l-table-price">
-              100000
-            </div>
-          </td>
-          <td>80000</td>
-          <td>80000</td>
-        </tr>
-        <tr>
-          <td>Cắt - Xã - Cạo mặt - Tạo kiểu</td>
-          <td>
-            <div class="l-table-price">
-              <select name="" id="">
-                <option value="">100000</option>
-                <option value="">200000</option>
-              </select>
-            </div>
-          </td>
-          <td>
-            <div class="l-table-quantity">
-              <button>-</button>
-              <span>10</span>
-              <button>+</button>
-            </div>
-          </td>
-          <td>80000</td>
-        </tr> --}}
-      </table>
-      <div class="c-btn-list">
-        <button class="c-btn01">BOOK</button>
-        <button class="c-btn02">CANCEL</button>
-      </div>
-
-    </div>
-    <div class="l-layout01-col02">
-      <div class="l-orders">
-        <div class="l-orders-head">
-          <span>Hóa đơn</span>
-          <span>..../..../202...</span>
-        </div>
-        <div class="l-orders-content">
-          <div class="l-col">
-            <div class="l-col1">
-              <label for="1">Mã HĐ</label>
-              <input type="text" >
-            </div>
-          </div>
-          <div class="l-col">
-            <div class="l-col1">
-              <label for="1">Tên KH</label>
-              <input type="text" >
-            </div>
-            <div class="l-col1">
-              <label for="1">SDT</label>
-              <input type="text" >
-            </div>
-          </div>
-        </div>
-        <div class="l-orders-list">
-          <table class="l-table">
-            <tr>
-              <th>Dịch vụ</th>
-              <th>Giá</th>
-              <th>SL</th>
-              <th>Thành tiền</th>
-            </tr>
-            <tr>
-              <td>Cắt - Xã - Cạo mặt - Tạo kiểu</td>
-              <td>100000</td>
-              <td>80000</td>
-              <td>80000</td>
-            </tr>
+  <div class="l-main">
+    <div class="l-layout01">
+      <div class="l-layout01-col01">
+        <div class="l-table--wrapper">
+          <table class="l-table js-table-services table-full">
+            <thead>
+              <tr>
+                <th>Tên dịch vụ</th>
+                <th>Giá tiền</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{!-- Services list --}}
+            </tbody>
           </table>
         </div>
-        <div class="l-orders-baber">
-          <div class="l-col">
-            <div class="l-col1">
-              <label for="">Thợ cắt</label>
-              <select name="" id="">
-                <option value="">Mr Hung</option>
-                <option value="">Mr Tuan</option>
-              </select>
+        <div class="c-btn-list">
+          <button class="c-btn01 js-btn-book">BOOK</button>
+          <button class="c-btn02 js-clear-data">CANCEL</button>
+        </div>
+
+      </div>
+      <div class="l-layout01-col02">
+        <div class="l-orders">
+          <div class="l-orders-head">
+            <span>Hóa đơn</span>
+            <span>..../..../202...</span>
+          </div>
+          <div class="l-orders-content">
+            {{!-- <div class="l-col">
+              <div class="l-col1">
+                <label for="1">Mã HĐ</label>
+                <input type="text" >
+              </div>
+            </div> --}}
+            <div class="input_wrapper">
+              <label for="1">Tên KH</label>
+              <input type="text" placeholder="Tên Khách Hàng">
             </div>
-            <div class="l-col1">
-              <label for="">Công</label>
-              <select name="" id="">
-                <option value="">Mr Hung</option>
-                <option value="">Mr Tuan</option>
-              </select>
+            <div class="input_wrapper">
+              <label for="1">SDT</label>
+              <input type="text" placeholder="Số điện thoại">
             </div>
           </div>
-        </div>
-        <div class="l-orders-total">
-          <div class="l-col">
-            <div class="l-col1">
-              <span>Tổng tiền</span>
-              <span class="l-col_txt--box">1000000</span>
-            </div>
-            <div class="l-col1">
-              <span >Công thợ</span>
-              <span class="l-col_txt--box">100000</span>
+          <div class="l-orders-list">
+            <table class="l-table js-table-receipt">
+              <thead>
+                <tr>
+                  <th>Dịch vụ</th>
+                  <th>Giá</th>
+                  <th>SL</th>
+                  <th>Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cắt - Xã - Cạo mặt - Tạo kiểu</td>
+                  <td>100000</td>
+                  <td>80000</td>
+                  <td>80000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <label for="">Ghi chú</label>
+            <input type="text">
+          </div>
+          <div class="l-orders-baber">
+            <div class="l-col">
+              <div class="l-col1">
+                <label for="">Thợ cắt</label>
+                <select name="" id="">
+                  <option value="">Mr Hung</option>
+                  <option value="">Mr Tuan</option>
+                </select>
+              </div>
+              <div class="l-col1">
+                <label for="">Công</label>
+                <select name="" id="">
+                  <option value="">Mr Hung</option>
+                  <option value="">Mr Tuan</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="l-orders-button">
-          <div class="c-btn-list">
-            <button class="c-btn03">ADD</button>
-            <button class="c-btn01">PAYMENT</button>
-            <button class="c-btn02">CANCEL</button>
+          <div class="l-orders-total">
+            <div class="l-col">
+              <div class="l-col1">
+                <span>Tổng tiền</span>
+                <span class="l-col_txt--box">1000000</span>
+              </div>
+              <div class="l-col1">
+                <span >Công thợ</span>
+                <span class="l-col_txt--box">100000</span>
+              </div>
+            </div>
+          </div>
+          <div class="l-orders-button">
+            <div class="c-btn-list">
+              <button class="c-btn03">ADD</button>
+              <button class="c-btn01">PAYMENT</button>
+              <button class="c-btn02">CANCEL</button>
+            </div>
           </div>
         </div>
       </div>
