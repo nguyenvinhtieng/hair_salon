@@ -4,7 +4,9 @@ const STATE = {
 }
 let global_servies = [];
 let current_services = [];
+let service_print_receipt = [];
 let current_state = STATE.CHOOSE
+let barbers = []
 /*
   {
     id: 1,
@@ -18,18 +20,21 @@ function formatMoney(money) {
   return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-function loadService() {
+function fetchData() {
   $.ajax({
-    url: '/get-services',
+    url: '/get-data',
     type: 'GET',
     success: function (data) {
       if(data.status) {
-        global_servies = data.services.services;
+        global_servies = data.data.services;
+        barbers = data.data.babers
         renderDataServices();
+        renderBarber();
       }
     }
   })
 }
+
 function renderDataServices() {
   let tableServices = document.querySelector(".js-table-services tbody");
   let html = '';
@@ -54,6 +59,13 @@ function renderDataServices() {
   initEventForTable();
 }
 
+function renderBarber() {
+  let listBaber = document.querySelector(".js-barber-list")
+  listBaber.innerHTML = '';
+  barbers.forEach(b => {
+    listBaber.innerHTML += `<option value="${b.id}">${b.name}</option>`
+  })
+}
 function initEventForTable() {
   let tableServices = document.querySelector(".js-table-services");
   let serviceTr = tableServices.querySelectorAll("tr");
@@ -110,12 +122,15 @@ function initEventForTable() {
 }
 
 function renderToReceipt() {
-  // delete current_services have quantity = 0 
+  let receiptDate = document.querySelector(".js-receipt-date")
+  let today = new Date()
+  receiptDate.innerHTML = `${today.getDate()} / ${today.getMonth() + 1} / ${today.getFullYear()}`
   current_services = current_services.filter(service => service.quantity > 0);
+  service_print_receipt = current_services;
   let tableReceipt = document.querySelector(".js-table-receipt tbody");
   tableReceipt.innerHTML = '';
   let html = ``
-  current_services.forEach(service => {
+  service_print_receipt.forEach(service => {
     html += `<tr>
               <td>${service.title}</td>
               <td>${formatMoney(service.price)}</td>
@@ -123,8 +138,18 @@ function renderToReceipt() {
               <td>${formatMoney(service.price * service.quantity)}</td>
             </tr>`
   })
-  tableReceipt.innerHTML += html;
 
+  tableReceipt.innerHTML += html;
+  calcTotal()
+}
+
+function calcTotal() {
+  let totalMoney = document.querySelector(".js-total-money")
+  let total = 0 ;
+  service_print_receipt.forEach(s => {
+    total += s.price * s.quantity;
+  })
+  totalMoney.innerHTML = formatMoney(total)
 }
 
 function eventForBtn() {
@@ -142,10 +167,24 @@ function eventForBtn() {
   }, false);
 
 }
-
+function onChangeBaberFee() {
+  let barderFee = document.querySelector(".js-barber-fee")
+  barderFee.addEventListener('change', function (e) {
+    let fee = e.target.value;
+    let total = 0
+    service_print_receipt.forEach(s=> {
+      total += s.price * s.quantity
+    })
+    let cal = total * fee / 100;
+    let bbFee = document.querySelector(".js-fee-bb")
+    bbFee.innerHTML = formatMoney(cal);
+  }, false);
+  
+}
 // function 
 
 window.addEventListener('load', function () {
-  loadService();
+  fetchData();
   eventForBtn();
+  onChangeBaberFee();
 }, false);

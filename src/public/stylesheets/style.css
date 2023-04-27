@@ -164,11 +164,11 @@ body {
   font-weight: 700;
   padding: 15px 11px;
   height: 5%;
+  margin-bottom: 20px;
 }
 .l-orders-list {
   height: 300px;
   overflow-y: auto;
-  background-color: rgba(202, 77, 77, 0.3490196078);
 }
 .l-orders-list tr::before {
   background-color: rgba(56, 39, 71, 0.2666666667);
@@ -182,6 +182,7 @@ body {
 
 .l-col {
   display: flex;
+  font-size: 12px;
 }
 .l-col1 {
   width: 50%;

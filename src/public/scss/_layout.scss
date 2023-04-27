@@ -135,11 +135,12 @@
     font-weight: 700;
     padding: 15px 11px;
     height: 5%;
+    margin-bottom: 20px;
   }
   &-list {
     height: 300px;
     overflow-y: auto;
-    background-color: #CA4D4D59;
+    // background-color: #CA4D4D59;
     tr {
       &::before {
         background-color: #38274744;
@@ -156,6 +157,7 @@
 
 .l-col {
   display: flex;
+  font-size: 12px;
   &1 {
     width: 50%;
     padding: 8px 11px;

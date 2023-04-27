@@ -8,10 +8,10 @@ class MainController {
         res.render("./services");
     }
 
-    getServices(req, res, next) {
-        let rawdata = fs.readFileSync('src/services.json');
-        let services = JSON.parse(rawdata);
-        return res.json({status: true, services: services});
+    getData(req, res, next) {
+        let rawdata = fs.readFileSync('src/data.json');
+        let data = JSON.parse(rawdata);
+        return res.json({status: true, data: data});
     }
 
 }

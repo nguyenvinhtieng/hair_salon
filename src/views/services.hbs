@@ -29,7 +29,7 @@
         <div class="l-orders">
           <div class="l-orders-head">
             <span>Hóa đơn</span>
-            <span>..../..../202...</span>
+            <span class="js-receipt-date">..../..../202...</span>
           </div>
           <div class="l-orders-content">
             {{!-- <div class="l-col">
@@ -58,33 +58,43 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Cắt - Xã - Cạo mặt - Tạo kiểu</td>
-                  <td>100000</td>
-                  <td>80000</td>
-                  <td>80000</td>
-                </tr>
+                {{!-- list rêcipt --}}
               </tbody>
             </table>
           </div>
           <div>
-            <label for="">Ghi chú</label>
-            <input type="text">
+            <div class="input_wrapper">
+              <label for="1">Ghi chú</label>
+              <input type="text" placeholder="Ghi chú...">
+            </div>
+            <div class="input_wrapper">
+              <label for="1">Phí khác</label>
+              <input type="number" placeholder="Phí khác">
+            </div>
           </div>
           <div class="l-orders-baber">
             <div class="l-col">
               <div class="l-col1">
                 <label for="">Thợ cắt</label>
-                <select name="" id="">
+                <select name="" id="" class="js-barber-list">
                   <option value="">Mr Hung</option>
                   <option value="">Mr Tuan</option>
                 </select>
               </div>
               <div class="l-col1">
                 <label for="">Công</label>
-                <select name="" id="">
-                  <option value="">Mr Hung</option>
-                  <option value="">Mr Tuan</option>
+                <select name="" id="" class="js-barber-fee">
+                  <option value="0">0%</option>
+                  <option value="10">10%</option>
+                  <option value="20">20%</option>
+                  <option value="30">30%</option>
+                  <option value="40">40%</option>
+                  <option value="50">50%</option>
+                  <option value="60">60%</option>
+                  <option value="70">70%</option>
+                  <option value="80">80%</option>
+                  <option value="90">90%</option>
+                  <option value="100">100%</option>
                 </select>
               </div>
             </div>
@@ -93,11 +103,11 @@
             <div class="l-col">
               <div class="l-col1">
                 <span>Tổng tiền</span>
-                <span class="l-col_txt--box">1000000</span>
+                <span class="l-col_txt--box js-total-money">0</span>
               </div>
               <div class="l-col1">
                 <span >Công thợ</span>
-                <span class="l-col_txt--box">100000</span>
+                <span class="l-col_txt--box js-fee-bb">0</span>
               </div>
             </div>
           </div>

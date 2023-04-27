@@ -76,5 +76,15 @@
       "type": "text",
       "list": []
     }
+  ],
+  "babers": [
+    {
+      "id": 1,
+      "name": "Mr Hung"
+    },
+    {
+      "id": 2,
+      "name": "Mr Tuan"
+    }
   ]
 }
