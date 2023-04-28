@@ -12,7 +12,9 @@ class MainController {
     renderOrders(req, res, next) {
         res.render("./orders");
     }
-
+    renderAnalytics(req, res, next) {
+        res.render("./analytics");
+    }
     getData(req, res, next) {
         let rawdata = fs.readFileSync('src/data.json');
         let data = JSON.parse(rawdata);

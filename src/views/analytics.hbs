@@ -1,0 +1,134 @@
+
+<main class="l-container">
+  {{> header}}
+  
+  <div class="l-main">
+    <div class="l-layout01">
+      
+      <div class="l-layout01-col01">
+        <div class="l-filter">
+         
+          <div class="input_wrapper">
+            <label for="">Từ Ngày</label>
+            <input type="date" class="js-filter-from-date">
+          </div>
+          <div class="input_wrapper">
+            <label for="">Đến Ngày</label>
+            <input type="date" class="js-filter-to-date">
+          </div>
+           <div class="input_wrapper">
+            <label for="">Tên thợ</label>
+            <input type="text" class="js-filter-barber">
+          </div>
+          <div class="input_wrapper">
+            <button class="c-btn01 js-filter">Lọc</button>
+            <button class="c-btn02 js-clear-filter">Xóa</button>
+          </div>
+        </div>
+        <div class="l-table--wrapper">
+          <table class="l-table js-table-orders table-full">
+            <thead>
+              <tr>
+                <th>Mã hóa đơn</th>
+                <th>Thợ cắt</th>
+                <th>Ngày lập</th>
+                <th>Công thợ</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {{!-- Orders list --}}
+            </tbody>
+          </table>
+        </div>
+        <div class="l-bot">
+          <p class="align-right">Tổng đơn: <span class="js-count">0</span> ---- Tổng tiền: <span class="js-tt-money">0</span></p>
+        </div>
+      </div>
+      <div class="l-layout01-col02">
+        <div class="l-orders">
+          <div class="l-orders-head">
+            <span>Hóa đơn</span>
+            <span class="js-order-date">..../..../202...</span>
+          </div>
+          <div class="l-orders-content">
+            <div class="input_wrapper">
+              <label for="1">Tên KH</label>
+              <input type="text" placeholder="Tên Khách Hàng" class="js-customer-name" disabled>
+            </div>
+            <div class="input_wrapper">
+              <label for="1">SDT</label>
+              <input type="text" placeholder="Số điện thoại" class="js-customer-phone" disabled>
+            </div>
+          </div>
+          <div class="l-orders-list">
+            <table class="l-table js-table-orders-detail">
+              <thead>
+                <tr>
+                  <th>Dịch vụ</th>
+                  <th>Giá</th>
+                  <th>SL</th>
+                  <th>Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{!-- list rêcipt --}}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="input_wrapper">
+              <label for="1">Ghi chú</label>
+              <input type="text" placeholder="Ghi chú..." class="js-note" disabled>
+            </div>
+            <div class="input_wrapper">
+              <label for="1">Phí khác</label>
+              <input type="number" placeholder="Phí khác" class="js-another-fee" disabled>
+            </div>
+          </div>
+          <div class="l-orders-baber">
+            <div class="l-col">
+              <div class="l-col1">
+                <label for="">Thợ cắt</label>
+                <span class="js-barber-name"></span>
+              </div>
+              <div class="l-col1">
+                <label for="">Công</label>
+                <span class="js-barber-fee"></span>
+              </div>
+            </div>
+          </div>
+          <div class="l-orders-total">
+            <div class="l-col">
+              <div class="l-col1">
+                <span>Tổng tiền</span>
+                <span class="l-col_txt--box js-total-money">0</span>
+              </div>
+              <div class="l-col1">
+                <span >Công thợ</span>
+                <span class="l-col_txt--box js-bb-fee-money">0</span>
+              </div>
+            </div>
+          </div>
+          {{!-- <div class="l-orders-button">
+            <div class="c-btn-list">
+              <button class="c-btn03 js-btn-back">ADD</button>
+              <button class="c-btn01 js-btn-payment">PAYMENT</button>
+              <button class="c-btn02 js-btn-cancel">CANCEL</button>
+            </div>
+          </div> --}}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/javascripts/analytics.js"></script>
+
+
+
+<style>
+  .l-layout01-col01 {
+    display: block;
+  }
+</style>
