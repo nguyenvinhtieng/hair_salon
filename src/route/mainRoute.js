@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router()
 const MainController = require('../app/controllers/MainController.js');
 
-router.get('/home', MainController.renderHome)
+router.get('/', MainController.renderHome)
 router.get('/services', MainController.renderServices)
 router.get('/get-data', MainController.getData)
+router.post('/booking', MainController.booking)
+router.get('/orders', MainController.renderOrders)
+router.get('/get-orders', MainController.getAllOrders)
 module.exports = router;

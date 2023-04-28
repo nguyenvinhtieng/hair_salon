@@ -82,17 +82,34 @@ body {
 
 .l-layout01 {
   display: flex;
-  padding: 12px 9px;
+  padding: 12px 15px;
   height: calc(100vh - 60px);
 }
 .l-layout01-col01 {
   width: 58.8194444444%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .l-layout01-col02 {
   padding-left: 20px;
-  width: 39.8611111111%;
+  flex: 1;
+  position: relative;
+}
+.l-layout01-layer {
+  position: absolute;
+  inset: -5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.2s linear;
+  pointer-events: none;
+}
+.l-layout01-layer.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
 }
 
 .l-table {
@@ -245,6 +262,12 @@ body {
   background: #555;
 }
 
+.l-filter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .c-btn-list {
   display: flex;
   flex-wrap: wrap;
@@ -320,13 +343,21 @@ select option {
   margin-bottom: 16px;
 }
 .input_wrapper label {
-  width: 10%;
+  width: 15%;
 }
 .input_wrapper input {
   flex: 1;
   padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.align-right {
+  text-align: right;
+  margin-top: 20px;
+}
+.align-right span {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

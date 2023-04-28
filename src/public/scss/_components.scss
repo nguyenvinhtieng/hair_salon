@@ -72,12 +72,20 @@ select {
   align-items: center;
   margin-bottom: 16px;
   label {
-    width: 10%;
+    width: 15%;
   }
   input {
     flex: 1;
     padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+}
+
+.align-right {
+  text-align: right;
+  margin-top: 20px;
+  span {
+    font-weight: bold;
   }
 }

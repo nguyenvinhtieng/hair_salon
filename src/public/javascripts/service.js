@@ -94,7 +94,6 @@ function initEventForTable() {
           title: serviceInGlobal.title,
           quantity: 1,
           price: serviceInGlobal.price,
-          pakage: null
         }
         current_services.push(newService);
         quantity.textContent = 1;
@@ -125,8 +124,6 @@ function renderToReceipt() {
   let receiptDate = document.querySelector(".js-receipt-date")
   let today = new Date()
   receiptDate.innerHTML = `${today.getDate()} / ${today.getMonth() + 1} / ${today.getFullYear()}`
-  current_services = current_services.filter(service => service.quantity > 0);
-  service_print_receipt = current_services;
   let tableReceipt = document.querySelector(".js-table-receipt tbody");
   tableReceipt.innerHTML = '';
   let html = ``
@@ -162,7 +159,35 @@ function eventForBtn() {
 
   let btnBook = document.querySelector(".js-btn-book");
   btnBook.addEventListener('click', function () {
+    current_services = current_services.filter(service => service.quantity > 0);
+    service_print_receipt = current_services;
+
+    let totalQuantity = 0;
+    current_services.forEach(s => {
+      totalQuantity += s.quantity;
+    })
+    if(totalQuantity == 0)  {
+      const Toast = Swal.mixin({
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'Không có dịch vụ nào được chọn!'
+      })
+
+      return;
+    }
+
     current_state = STATE.BOOKING;
+    updateLayerActive();
     renderToReceipt();
   }, false);
 
@@ -170,21 +195,172 @@ function eventForBtn() {
 function onChangeBaberFee() {
   let barderFee = document.querySelector(".js-barber-fee")
   barderFee.addEventListener('change', function (e) {
-    let fee = e.target.value;
-    let total = 0
-    service_print_receipt.forEach(s=> {
-      total += s.price * s.quantity
-    })
-    let cal = total * fee / 100;
-    let bbFee = document.querySelector(".js-fee-bb")
-    bbFee.innerHTML = formatMoney(cal);
+    updateBaberFee()
   }, false);
   
 }
+
+
+function updateBaberFee() {
+  let barderFee = document.querySelector(".js-barber-fee")
+  let fee = barderFee.value;
+  let total = 0
+  service_print_receipt.forEach(s=> {
+    total += s.price * s.quantity
+  })
+  let cal = total * fee / 100;
+  let bbFee = document.querySelector(".js-fee-bb")
+  bbFee.innerHTML = formatMoney(cal);
+}
 // function 
+function eventForReceiptArea() {
+  let btnPayment = document.querySelector(".js-btn-payment");
+  btnPayment.addEventListener('click', function () {
+    let customerName = document.querySelector(".js-customer-name").value;
+    let customerPhone = document.querySelector(".js-customer-phone").value;
+
+    if(customerName == '' || customerPhone == '') {
+      const Toast = Swal.mixin({
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'Vui lòng điền đủ thông tin tên và số điện thoại!'
+      })
+      return;
+
+    }
+    Swal.fire({
+      title: 'Xác nhận!',
+      text: 'Các thông tin đã chính xác? Nhấn đồng ý để hoàn tất hóa đơn!',
+      // icon: 'success',
+      showDenyButton: false,
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Đồng Ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if(result.isConfirmed){
+        bookingService();
+      }
+    })
+  }, false);
+
+  let btnCancel = document.querySelector(".js-btn-cancel");
+  btnCancel.addEventListener('click', function () {
+    Swal.fire({
+      title: 'Xác nhận!',
+      text: 'Bạn có chắc muốn xóa các dịch vụ đã chọn?',
+      icon: 'warning',
+      showDenyButton: true,
+      showCancelButton: true,
+      showConfirmButton: false,
+      confirmButtonText: 'Hủy chọn',
+      denyButtonText: `Xóa tất cả`,
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isDenied) {
+        service_print_receipt = [];
+        renderToReceipt();
+        updateBaberFee();
+        current_state = STATE.SERVICE;
+        updateLayerActive();
+      }
+    })
+
+  }, false);
+
+
+  let btnBack = document.querySelector(".js-btn-back");
+  btnBack.addEventListener('click', function () {
+    current_state = STATE.SERVICE;
+    updateLayerActive();
+  });
+
+}
+
+
+function updateLayerActive() {
+  let layer01 = document.querySelector(".js-layer-01")
+  let layer02 = document.querySelector(".js-layer-02")
+
+  if(current_state == STATE.SERVICE) {
+    layer01.classList.remove("is-active");
+    layer02.classList.add("is-active");
+  }else {
+    layer01.classList.add("is-active");
+    layer02.classList.remove("is-active");
+  }
+}
+
+function bookingService() {
+  let customerName = document.querySelector(".js-customer-name").value;
+  let customerPhone = document.querySelector(".js-customer-phone").value;
+  let barberId = document.querySelector(".js-barber-list").value;
+  let barberFree = document.querySelector(".js-barber-fee").value;
+  let note = document.querySelector(".js-note").value;
+  let anotherFee = document.querySelector(".js-another-fee").value;
+
+
+  let total = 0;
+  service_print_receipt.forEach(s => {
+    total += s.price * s.quantity;
+  });
+  total += Number(anotherFee);
+  let data = {
+    customer_name: customerName,
+    customer_phone: customerPhone,
+    barber_id: barberId,
+    barber_fee: Number(barberFree),
+    services: service_print_receipt,
+    note: note,
+    another_fee: Number(anotherFee),
+    total: total
+  }
+
+  $.ajax({
+    url: "/booking",
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    success: function (data) {
+      if(data.status) {
+        current_services = [];
+        service_print_receipt = [];
+        renderToReceipt();
+        updateBaberFee();
+        current_state = STATE.SERVICE;
+        updateLayerActive();
+        renderDataServices();
+        Swal.fire({
+          title: 'Thành công!',
+          text: 'Đã đặt thành công!',
+          icon: 'success'
+        })
+      }
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
+
+
 
 window.addEventListener('load', function () {
   fetchData();
   eventForBtn();
   onChangeBaberFee();
+  eventForReceiptArea();
+  document.querySelectorAll(".l-header__item")[1].classList.add("is-active")
 }, false);
+
+
