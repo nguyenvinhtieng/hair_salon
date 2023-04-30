@@ -142,6 +142,18 @@ function filterEvent() {
         if(orderDate >= from && orderDate <= to) {
           ordersAfterFilter.push(order)
         }
+      }else if(fromDate.value != "" && toDate.value == "") {
+        let from = new Date(fromDate.value)
+        let orderDate = new Date(order.created_at)
+        if(orderDate >= from) {
+          ordersAfterFilter.push(order)
+        }
+      } else if(fromDate.value == "" && toDate.value != "") {
+        let to = new Date(toDate.value)
+        let orderDate = new Date(order.created_at)
+        if(orderDate <= to) {
+          ordersAfterFilter.push(order)
+        }
       }
     })
     // remove duplicate order
