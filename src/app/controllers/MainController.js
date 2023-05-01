@@ -32,7 +32,12 @@ class MainController {
         let orders = await Booking.find({});
         return res.json({status: true, data: orders});
     }
-
+    async deleteOrder(req, res, next) {
+        let {ids} = req.body
+        console.log("ids::", ids)
+        await Booking.deleteMany({_id: {$in: ids}})
+        return res.json({status: true});
+    }
 }
 
 module.exports = new MainController();

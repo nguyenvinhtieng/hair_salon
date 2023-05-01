@@ -92,7 +92,7 @@ function renderOrderDetail() {
   customerName.value = currentOrder.customer_name
   customerPhone.value = currentOrder.customer_phone
   note.value = currentOrder.note
-  anotherFee.value = formatMoney(currentOrder.another_fee)
+  anotherFee.value = currentOrder.another_fee
   let barber = allBarbers.find(barber => barber.id == currentOrder.barber_id)
   barberName.innerHTML = barber.name
   barberFee.innerHTML = formatMoney(currentOrder.barber_fee) || 0
@@ -129,32 +129,38 @@ function filterEvent() {
     }
     allOrders.forEach(order => {
       let barber = allBarbers.find(barber => barber.id == order.barber_id)
+
       if(barberName.value != "") {
-        if(barber.name.toLowerCase().includes(barberName.value.toLowerCase())) {
-          ordersAfterFilter.push(order)
+        if(!barber.name.toLowerCase().includes(barberName.value.toLowerCase())) {
+          return
         }
       }
-
       if(fromDate.value != "" && toDate.value != "") {
-        let from = new Date(fromDate.value)
-        let to = new Date(toDate.value)
-        let orderDate = new Date(order.created_at)
-        if(orderDate >= from && orderDate <= to) {
-          ordersAfterFilter.push(order)
+        let from = new Date(fromDate.value).setHours(0,0,0,0)
+        let to = new Date(toDate.value).setHours(0,0,0,0)
+        let orderDate = new Date(order.created_at).setHours(0,0,0,0)
+        if(orderDate < from || orderDate > to) {
+          return
         }
       }else if(fromDate.value != "" && toDate.value == "") {
-        let from = new Date(fromDate.value)
-        let orderDate = new Date(order.created_at)
-        if(orderDate >= from) {
-          ordersAfterFilter.push(order)
+        let from = new Date(fromDate.value).setHours(0,0,0,0)
+        let orderDate = new Date(order.created_at).setHours(0,0,0,0)
+        if(orderDate < from) {
+          return;
         }
       } else if(fromDate.value == "" && toDate.value != "") {
-        let to = new Date(toDate.value)
-        let orderDate = new Date(order.created_at)
-        if(orderDate <= to) {
-          ordersAfterFilter.push(order)
+        let to = new Date(toDate.value).setHours(0,0,0,0)
+        let orderDate = new Date(order.created_at).setHours(0,0,0,0)
+        console.log(orderDate > to);
+        if(orderDate > to) {
+          return;
         }
       }
+      console.log("ordersAfterFilter", ordersAfterFilter);
+      console.log("order", order);
+      ordersAfterFilter.push(order)
+      console.log("ordersAfterFilter", ordersAfterFilter);
+      console.log("--------------------")
     })
     // remove duplicate order
     ordersAfterFilter = ordersAfterFilter.filter((order, index, self) => {
@@ -165,9 +171,10 @@ function filterEvent() {
   })
 
   btnReset.addEventListener("click", function () {
-    customerName.value = ""
-    date.value = ""
-    phoneNumber.value = ""
+
+    barberName.value = ""
+    fromDate.value = ""
+    toDate.value = ""
     renderOrders = allOrders
     renderTableOrder()
   })

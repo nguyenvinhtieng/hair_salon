@@ -353,13 +353,38 @@ function bookingService() {
   });
 }
 
+function onChangeAnotherFee(){
+  let inputAnotherFee = document.querySelector(".js-another-fee");
+  let jsTotalMoney = document.querySelector(".js-total-money");
+  let barberFee = document.querySelector(".js-fee-bb");
+  let bbF = document.querySelector(".js-barber-fee");
+  inputAnotherFee.addEventListener('keyup', function (e) {
+    let val = e.target.value;
+    if(val == '') {
+      val = 0;
+    }
+    let totalMoney = 0;
+    service_print_receipt.forEach(s => {
+      totalMoney += s.price * s.quantity;
+    });
+    // if(val == 0) {
+    let valBB = bbF.value;
+    if(valBB == '') {
+      valBB = 0;
+    }
+    jsTotalMoney.innerHTML = formatMoney(Number(val) + totalMoney);
+    barberFee.innerHTML = formatMoney((Number(val) + totalMoney) * valBB / 100);
 
+
+  }, false);
+}
 
 window.addEventListener('load', function () {
   fetchData();
   eventForBtn();
   onChangeBaberFee();
   eventForReceiptArea();
+  onChangeAnotherFee();
   document.querySelectorAll(".l-header__item")[1].classList.add("is-active")
 }, false);
 

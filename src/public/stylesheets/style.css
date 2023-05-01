@@ -360,4 +360,8 @@ select option {
   font-weight: bold;
 }
 
+.u-hide {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

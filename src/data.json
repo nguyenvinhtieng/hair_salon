@@ -28,11 +28,18 @@
       "type": "text"
     },
     {
-      "id": 11,
+      "id": 19,
       "title": "Duỗi L2",
+      "price" : 350000,
+      "type": "text"
+    },
+    {
+      "id": 11,
+      "title": "Duỗi L3",
       "price" : 400000,
       "type": "text"
     },
+    
 
     {
       "id": 5,
@@ -44,7 +51,7 @@
     {
       "id": 6,
       "title": "Tẩy tóc",
-      "price" : 120000,
+      "price" : 150000,
       "type": "text",
       "list": []
     },

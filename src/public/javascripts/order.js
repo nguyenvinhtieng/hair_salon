@@ -18,6 +18,7 @@ function fetchDataService() {
 
 
 function formatMoney(money) {
+  // it
   return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function formatTime(time) {
@@ -47,6 +48,7 @@ function renderTableOrder() {
   let html = ``
   renderOrders.forEach((order, index) => {
     html += `<tr id="${order._id}" class="js-row-data">
+                <td><input type="checkbox" /></td>
                 <td>${order._id}</td>
                 <td>${order.customer_name}</td>
                 <td>${formatTime(order.created_at)}</td>
@@ -67,10 +69,65 @@ function addEventClickRow() {
       renderOrderDetail()
     })
   })
+
+
 }
 
 
-function renderOrderDetail() {
+function eventDel() {
+  let btnDel = document.querySelector(".js-btn-delete")
+  btnDel.addEventListener("click", function () {
+    // get all checked
+    let checked = document.querySelectorAll(".js-table-orders tbody input:checked")
+    // console.log("checked::", checked)
+    let ids = []
+    checked.forEach(check => {
+      ids.push(check.parentElement.parentElement.id)
+    })
+    if(ids.length == 0) {
+      Swal.fire(
+        'Thông báo!',
+        'Vui lòng chọn đơn hàng cần xóa.',
+        'warning'
+      )
+      return
+    }
+
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn xóa?',
+      text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/delete-order",
+          type: "POST",
+          data: {
+            ids: ids
+          },
+          success: function (data) {
+            if (data.status) {
+              Swal.fire(
+                'Đã xóa!',
+                'Dữ liệu đã được xóa.',
+                'success'
+              )
+              fetchData()
+              renderOrderDetail(true)
+            }
+          }
+        })
+      }
+    })
+  })
+}
+
+
+
+function renderOrderDetail(is_clear = false) {
   let orderDate = document.querySelector(".js-order-date")
   let customerName = document.querySelector(".js-customer-name")
   let customerPhone = document.querySelector(".js-customer-phone")
@@ -82,14 +139,28 @@ function renderOrderDetail() {
   let totalEl = document.querySelector(".js-total-money")
   let bbFeeMoney = document.querySelector(".js-bb-fee-money")
 
+  if(is_clear) {
+    orderDate.innerHTML = ""
+    customerName.value = ""
+    customerPhone.value = ""
+    note.value = ""
+    anotherFee.value = ""
+    barberName.innerHTML = ""
+    barberFee.innerHTML = ""
+    totalEl.innerHTML = ""
+    bbFeeMoney.innerHTML = ""
+    tableDetail.innerHTML = ""
+    return
+  }
+
   orderDate.innerHTML = formatTime(currentOrder.created_at)
   customerName.value = currentOrder.customer_name
   customerPhone.value = currentOrder.customer_phone
   note.value = currentOrder.note
-  anotherFee.value = formatMoney(currentOrder.another_fee)
+  anotherFee.value = currentOrder.another_fee
   let barber = allBarbers.find(barber => barber.id == currentOrder.barber_id)
   barberName.innerHTML = barber.name
-  barberFee.innerHTML = formatMoney(currentOrder.barber_fee) || 0
+  barberFee.innerHTML = ( formatMoney(currentOrder.barber_fee) || 0 ) + "%"
   totalEl.innerHTML = formatMoney(currentOrder.total)
   bbFeeMoney.innerHTML = formatMoney(currentOrder.total / 100 * currentOrder.barber_fee) || 0
 
@@ -123,15 +194,25 @@ function filterEvent() {
 
 
     allOrders.forEach(order => {
-      if(customerName.value != "" && order.customer_name.toLowerCase().includes(customerName.value.toLowerCase())) {
-        ordersAfterFilter.push(order)
+      if(customerName.value != "") {
+        if(!order.customer_name.toLowerCase().includes(customerName.value.toLowerCase())) {
+          return
+        }
       }
-      if(date.value != "" && date.value == formatDate(order.created_at)) {
-        ordersAfterFilter.push(order)
+
+      if(date.value != "") {
+        if(date.value != formatDate(order.created_at)) {
+          return
+        }
       }
-      if(phoneNumber.value != "" && order.customer_phone.includes(phoneNumber.value)) {
-        ordersAfterFilter.push(order)
+
+      if(phoneNumber.value != "") {
+        if(!order.customer_phone.includes(phoneNumber.value)) {
+          return
+        }
       }
+
+      ordersAfterFilter.push(order)
     })
 
     renderOrders = ordersAfterFilter
@@ -142,10 +223,8 @@ function filterEvent() {
     customerName.value = ""
     date.value = ""
     phoneNumber.value = ""
-    // fetchData()
     renderOrders = allOrders
     renderTableOrder()
-
   })
 }
 
@@ -153,6 +232,7 @@ function filterEvent() {
 window.addEventListener('load', function () {
   fetchData()
   fetchDataService()
+  eventDel()
   filterEvent()
   document.querySelectorAll(".l-header__item")[2].classList.add("is-active")
 });
