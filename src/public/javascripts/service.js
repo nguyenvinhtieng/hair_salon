@@ -325,6 +325,7 @@ function bookingService() {
     another_fee: Number(anotherFee),
     total: total
   }
+  console.log("Data::", data);
 
   $.ajax({
     url: "/booking",

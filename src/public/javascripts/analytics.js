@@ -124,7 +124,7 @@ function filterEvent() {
 
   btnFilter.addEventListener("click", function () {
     let ordersAfterFilter = []
-    if(barberName.value != "" && fromDate.value != "" && toDate.value != "") {
+    if(barberName.value == "" && fromDate.value == "" && toDate.value == "") {
       return
     }
     allOrders.forEach(order => {
@@ -156,11 +156,7 @@ function filterEvent() {
           return;
         }
       }
-      console.log("ordersAfterFilter", ordersAfterFilter);
-      console.log("order", order);
       ordersAfterFilter.push(order)
-      console.log("ordersAfterFilter", ordersAfterFilter);
-      console.log("--------------------")
     })
     // remove duplicate order
     ordersAfterFilter = ordersAfterFilter.filter((order, index, self) => {
